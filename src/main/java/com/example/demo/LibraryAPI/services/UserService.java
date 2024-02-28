@@ -71,8 +71,21 @@ public class UserService {
         }
     }
 
-    public void delUserbyId(UUID id) {
-        userRepo.deleteById(id);
+    public String delUserbyId(UUID id, String password) {
+        Optional<UserUpdated> optUser = userRepo.findById(id);
+        if (optUser.isPresent()){
+            String pass = optUser.get().getPassword();
+            if (pass.equals(password)){
+                userRepo.deleteById(id);
+                return "User Deleted Successfully";
+            }
+            else {
+                return "Passwords Don't Match. PLEASE CHECK!!";
+            }
+        }
+        else {
+            return "User Not Found";
+        }
     }
 
     public String delAllUsers() {
@@ -97,6 +110,4 @@ public class UserService {
         }
         return result;
     }
-    /*public List<UserUpdated> getUserByName() {
-    }*/
 }
