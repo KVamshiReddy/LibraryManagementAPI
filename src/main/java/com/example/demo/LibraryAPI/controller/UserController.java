@@ -50,11 +50,13 @@ public class UserController {
         userService.delUserbyId(id, password);
     }
 
+    @Operation(summary = "Deletes all users")
     @DeleteMapping("/delete/all")
     public String delAllUsers() {
         return userService.delAllUsers();
     }
 
+    @Operation(summary = "Get user by his name")
     @GetMapping("/name/{fname}")
     List<UserUpdated> findByName(@PathVariable String fname) {
         /*Query query = new Query();
@@ -63,6 +65,7 @@ public class UserController {
         return userRepo.findByName(fname);
     }
 
+    @Operation(summary = "Get users by their subscription")
     @GetMapping("/sub/{subscription}")
     List<UserUpdated> findBySub(@PathVariable String subscription){
         /*Query query = new Query();
@@ -71,6 +74,7 @@ public class UserController {
         return userRepo.findBySub(subscription);
     }
 
+    @Operation(summary = "Get list of all books borrowed by the user")
     @GetMapping("/get/user/borrowed")
     public Response getBooksByUserId(@RequestParam UUID userId){
         return new Response(userService.getBooksByUserId(userId));

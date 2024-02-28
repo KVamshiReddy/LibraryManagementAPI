@@ -92,9 +92,11 @@ public class BorrowedBookService {
         if (daysDifference > 0) {
             fineAmt = (user.getSubscription().getFineAmount()) * (daysDifference);
             user.setFine(fineAmt);
+            userRepo.save(user);
+            return "Fine Amount is " + fineAmt;
         }
-        userRepo.save(user);
-        return "Fine Amount is " + fineAmt;
+        else {
+            return "Book is returned on time";
+        }
     }
-
 }
