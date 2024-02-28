@@ -46,7 +46,7 @@ public class UserController {
 
     @Operation(summary = "Delete a user only if he enters his password")
     @DeleteMapping("/delete/user/{id}")
-    public void delUserbyId(@PathVariable UUID id, @RequestParam("password") String password) {
+    public void delUserById(@PathVariable UUID id, @RequestParam("password") String password) {
         userService.delUserbyId(id, password);
     }
 
