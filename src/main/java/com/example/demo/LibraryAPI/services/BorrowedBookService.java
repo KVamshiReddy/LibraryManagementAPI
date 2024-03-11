@@ -40,8 +40,7 @@ public class BorrowedBookService {
             borrowedBook.setBorrowedDate(convertToIst(new Date()));
             Calendar returnCalendar = Calendar.getInstance();
             returnCalendar.setTime(convertToIst(borrowedBook.getBorrowedDate()));
-            int borrowDays = user.getSubscription().getBorrowDays();
-            returnCalendar.add(Calendar.DATE, borrowDays);
+            returnCalendar.add(Calendar.DATE, user.getSubscription().getBorrowDays());
             borrowedBook.setReturnDate(returnCalendar.getTime());
             book.setCopies((book.getCopies())-1);
             borrowedBookRepo.save(borrowedBook);
@@ -67,10 +66,9 @@ public class BorrowedBookService {
 
 
     public String   updateDate(UUID id) throws ParseException {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Optional<BorrowedBook> optborrowedBook = borrowedBookRepo.findById(id);
-        if (optborrowedBook.isPresent()){
-            BorrowedBook borrowedBook = optborrowedBook.get();
+        Optional<BorrowedBook> optBorrowedBook = borrowedBookRepo.findById(id);
+        if (optBorrowedBook.isPresent()){
+            BorrowedBook borrowedBook = optBorrowedBook.get();
             if(borrowedBook.getSubmissionDate() == null){
                 borrowedBook.setSubmissionDate(convertToIst(new Date()));
                 borrowedBookRepo.save(borrowedBook);
@@ -90,8 +88,7 @@ public class BorrowedBookService {
         long daysDifference = Duration.between(borrowedBook.getReturnDate().toInstant(), borrowedBook.getSubmissionDate().toInstant()).toDays();
         long fineAmt = 0;
         if (daysDifference > 0) {
-            fineAmt = (user.getSubscription().getFineAmount()) * (daysDifference);
-            user.setFine(fineAmt);
+            user.setFine((user.getSubscription().getFineAmount()) * (daysDifference));
             userRepo.save(user);
             return "Fine Amount is " + fineAmt;
         }
