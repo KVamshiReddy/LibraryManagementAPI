@@ -5,11 +5,8 @@ import com.example.demo.LibraryAPI.models.UserUpdated;
 import com.example.demo.LibraryAPI.repository.BookRepo;
 import com.example.demo.LibraryAPI.repository.BorrowedBookRepo;
 import com.example.demo.LibraryAPI.repository.UserRepo;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

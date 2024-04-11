@@ -27,7 +27,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @Operation(summary = "Create a new user")
+    @Operation(summary = "Create a new user / User Registration")
     @PostMapping("/add/user")
     public String addUser(@RequestBody UserUpdated user) throws Exception {
         return userService.addUser(user);
